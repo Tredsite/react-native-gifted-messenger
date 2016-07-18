@@ -242,7 +242,7 @@ class GiftedMessenger extends Component {
 
   onKeyboardDidShow(e) {
     if (Platform.OS === 'android') {
-      this.onKeyboardWillShow(e);
+      //this.onKeyboardWillShow(e);
     }
 
     setTimeout(() => {
