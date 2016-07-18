@@ -234,10 +234,10 @@ class GiftedMessenger extends Component {
   }
 
   onKeyboardWillShow(e) {
-    /* Animated.timing(this.state.height, {
+    Animated.timing(this.state.height, {
       toValue: this.listViewMaxHeight - e.endCoordinates.height,
       duration: 200,
-    }).start(); */
+    }).start();
   }
 
   onKeyboardDidShow(e) {
