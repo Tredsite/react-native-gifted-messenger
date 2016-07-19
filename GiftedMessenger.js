@@ -35,6 +35,7 @@ class GiftedMessenger extends Component {
     this.onKeyboardWillHide = this.onKeyboardWillHide.bind(this);
     this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onSend = this.onSend.bind(this);
 
     this._firstDisplay = true;
@@ -68,6 +69,7 @@ class GiftedMessenger extends Component {
       disabled: true,
       height: new Animated.Value(this.listViewMaxHeight),
       appearAnim: new Animated.Value(0),
+      inputHeight: 0
     };
   }
 
@@ -286,12 +288,18 @@ class GiftedMessenger extends Component {
     this._visibleRows = visibleRows;
   }
 
+  onChange(event) {
+    this.setState({
+      text: event.nativeEvent.text,
+      inputHeight: event.nativeEvent.contentSize.height + 10
+    });
+  }
+
   onChangeText(text) {
     this.setState({
       text,
       disabled: text.trim().length <= 0
     });
-
     this.props.onChangeText(text);
   }
 
@@ -571,16 +579,17 @@ class GiftedMessenger extends Component {
         <View style={this.styles.textInputContainer}>
           {this.props.leftControlBar}
           <TextInput
-            style={this.styles.textInput}
+            multiline={true}
+            style={[this.styles.textInput, {height: Math.max(35, this.state.inputHeight)}]}
             placeholder={this.props.placeholder}
             placeholderTextColor={this.props.placeholderTextColor}
             onChangeText={this.onChangeText}
+            onChange={this.onChange}
             value={this.state.text}
             autoFocus={this.props.autoFocus}
             returnKeyType={this.props.submitOnReturn ? 'send' : 'default'}
             onSubmitEditing={this.props.submitOnReturn ? this.onSend : () => {}}
             enablesReturnKeyAutomatically={true}
-
             blurOnSubmit={this.props.blurOnSubmit}
           />
           <Button
@@ -665,6 +674,7 @@ GiftedMessenger.propTypes = {
   loadEarlierMessagesButtonText: React.PropTypes.string,
   maxHeight: React.PropTypes.number,
   messages: React.PropTypes.array,
+  onChange: React.PropTypes.func,
   onChangeText: React.PropTypes.func,
   onCustomSend: React.PropTypes.func,
   onErrorButtonPress: React.PropTypes.func,
