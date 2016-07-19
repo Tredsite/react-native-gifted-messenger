@@ -35,7 +35,6 @@ class GiftedMessenger extends Component {
     this.onKeyboardWillHide = this.onKeyboardWillHide.bind(this);
     this.onKeyboardDidHide = this.onKeyboardDidHide.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.onSend = this.onSend.bind(this);
 
     this._firstDisplay = true;
@@ -288,13 +287,6 @@ class GiftedMessenger extends Component {
     this._visibleRows = visibleRows;
   }
 
-  onChange(event) {
-    this.setState({
-      text: event.nativeEvent.text,
-      inputHeight: event.nativeEvent.contentSize.height + 10
-    });
-  }
-
   onChangeText(text) {
     this.setState({
       text,
@@ -373,7 +365,6 @@ class GiftedMessenger extends Component {
       }
     }
   }
-
 
   isLastMessageVisible() {
     return !!this._visibleRows.s1[this.getLastMessageUniqueId()];
@@ -509,7 +500,7 @@ class GiftedMessenger extends Component {
           handlePhonePress={this.props.handlePhonePress}
           handleUrlPress={this.props.handleUrlPress}
           handleEmailPress={this.props.handleEmailPress}
-
+          useInitials={this.props.useInitials}
           styles={this.styles}
         />
       </View>
@@ -579,12 +570,10 @@ class GiftedMessenger extends Component {
         <View style={this.styles.textInputContainer}>
           {this.props.leftControlBar}
           <TextInput
-            multiline={true}
             style={[this.styles.textInput, {height: Math.max(35, this.state.inputHeight)}]}
             placeholder={this.props.placeholder}
             placeholderTextColor={this.props.placeholderTextColor}
             onChangeText={this.onChangeText}
-            onChange={this.onChange}
             value={this.state.text}
             autoFocus={this.props.autoFocus}
             returnKeyType={this.props.submitOnReturn ? 'send' : 'default'}
@@ -652,6 +641,7 @@ GiftedMessenger.defaultProps = {
   submitOnReturn: false,
   text: '',
   typingMessage: '',
+  useInitials: false
 };
 
 GiftedMessenger.propTypes = {
@@ -674,7 +664,6 @@ GiftedMessenger.propTypes = {
   loadEarlierMessagesButtonText: React.PropTypes.string,
   maxHeight: React.PropTypes.number,
   messages: React.PropTypes.array,
-  onChange: React.PropTypes.func,
   onChangeText: React.PropTypes.func,
   onCustomSend: React.PropTypes.func,
   onErrorButtonPress: React.PropTypes.func,
@@ -693,6 +682,7 @@ GiftedMessenger.propTypes = {
   styles: React.PropTypes.object,
   submitOnReturn: React.PropTypes.bool,
   typingMessage: React.PropTypes.string,
+  useInitials: React.PropTypes.bool,
 };
 
 
