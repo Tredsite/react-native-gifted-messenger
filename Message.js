@@ -47,27 +47,37 @@ const styles = StyleSheet.create({
     marginTop: -5,
   },
   initialContainerStyleLeft: {
-    backgroundColor: '#3EB5AC',
+    backgroundColor: '#b6ebe7',
+    borderWidth: 1,
+    borderColor: '#28948C',
     borderRadius: 15,
     width: 30,
     height: 30,
-    paddingTop: 7,
+    paddingTop: 5,
     marginHorizontal: 3,
     marginTop: 2,
   },
   initialContainerStyleRight: {
-    backgroundColor: '#009DCD',
+    backgroundColor: '#b4edff',
+    borderWidth: 1,
+    borderColor: '#009DCD',
     borderRadius: 15,
     width: 30,
     height: 30,
-    paddingTop: 7,
+    paddingTop: 5,
     marginHorizontal: 3,
     marginTop: 2,
   },
-  initialsStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontFamily: 'BrandonText-Bold',
+  initialsStyleLeft: {
+    color: '#28948C',
+    fontFamily: 'BrandonText-Regular',
+    fontSize: 12,
+    textAlign: 'center',
+    backgroundColor: 'transparent',
+  },
+  initialsStyleRight: {
+    color: '#009DCD',
+    fontFamily: 'BrandonText-Regular',
     fontSize: 12,
     textAlign: 'center',
     backgroundColor: 'transparent',
@@ -118,7 +128,7 @@ export default class Message extends Component {
             >
               {shouldUseInitials ?
                 <View style={(rowData.position === 'left' ? styles.initialContainerStyleLeft : styles.initialContainerStyleRight)}>
-                  <Text style={styles.initialsStyle}>{this.getInitials(rowData)}</Text>
+                  <Text style={(rowData.position === 'left' ? styles.initialsStyleLeft : styles.initialsStyleRight)}>{this.getInitials(rowData)}</Text>
                 </View>
                 :
                 <ImageView
@@ -132,7 +142,7 @@ export default class Message extends Component {
         return (
         shouldUseInitials ?
           <View style={(rowData.position === 'left' ? styles.initialContainerStyleLeft : styles.initialContainerStyleRight)}>
-            <Text style={styles.initialsStyle}>{this.getInitials(rowData)}</Text>
+            <Text style={(rowData.position === 'left' ? styles.initialsStyleLeft : styles.initialsStyleRight)}>{this.getInitials(rowData)}</Text>
           </View>
         :
           <ImageView
