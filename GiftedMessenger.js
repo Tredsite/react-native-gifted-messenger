@@ -265,14 +265,14 @@ class GiftedMessenger extends Component {
 
   onKeyboardWillShow(e) {
     this.keyboardHeight = e.endCoordinates.height;
-
+    let toValue = Platform.OS === 'android' ? this.textInputHeight + this.totalInputHeightDelta : e.endCoordinates.height + this.textInputHeight + this.totalInputHeightDelta;
     Animated.parallel([
       Animated.timing(this.state.height, {
         toValue: this.listViewMaxHeight - e.endCoordinates.height - this.totalInputHeightDelta,
         duration: 200,
       }).start(),
       Animated.timing(this.state.inputHeight, {
-        toValue: e.endCoordinates.height + this.textInputHeight + this.totalInputHeightDelta,
+        toValue: toValue,
         duration: 200,
       }).start(),
     ]);
@@ -661,9 +661,10 @@ class GiftedMessenger extends Component {
     if(heightDelta > -10 && heightDelta < 10) return; //after typing the first character in the input, a small height increase occurs, which isn't compensating by a height decrease when it's deleted, so we disregard it
 
     this.totalInputHeightDelta += heightDelta;
+    let toValue = Platform.OS === 'android' ? this.totalInputHeightDelta + this.textInputHeight : this.totalInputHeightDelta + this.textInputHeight + this.keyboardHeight;
 
     Animated.timing(this.state.inputHeight, {
-      toValue: this.totalInputHeightDelta + this.textInputHeight + this.keyboardHeight,
+      toValue: toValue,
       duration: 150,
     }).start(() => {
       if(!this.hasMoreContentThanSpaceAvailable()) return;
@@ -681,8 +682,10 @@ class GiftedMessenger extends Component {
 
     this.totalInputHeightDelta = 0;
 
+    let toValue = Platform.OS === 'android' ? this.textInputHeight : this.textInputHeight + this.keyboardHeight;
+
     Animated.timing(this.state.inputHeight, {
-      toValue: this.textInputHeight + this.keyboardHeight,
+      toValue: toValue,
       duration: 150,
     }).start();
   }
