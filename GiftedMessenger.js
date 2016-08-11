@@ -47,7 +47,6 @@ class GiftedMessenger extends Component {
     let textInputHeight = 44;
 
     if (!this.props.hideTextInput) {
-      console.log(this.props.styles);
       if (this.props.styles.hasOwnProperty('textInputContainer')) {
         textInputHeight = this.props.styles.textInputContainer.height || textInputHeight;
       }
