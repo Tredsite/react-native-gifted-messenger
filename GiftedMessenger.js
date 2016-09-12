@@ -632,7 +632,7 @@ class GiftedMessenger extends Component {
             enablesReturnKeyAutomatically={true}
             multiline={this.props.multiline === true ? true : false}
             blurOnSubmit={!this.props.multiline && this.props.blurOnSubmit}
-            maxInputHeight={this.props.maxInputHeight}
+            maxHeight={this.props.maxInputHeight}
             {...this.props.textInputProps}
             onHeightChanged={this.onTextInputHeightChanged.bind(this)}
           />
